@@ -1,6 +1,8 @@
 package jpabook.jpashop.relationmap;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member2 {
@@ -12,9 +14,27 @@ public class Member2 {
     @Column(name = "USERNAME")
     private String username;
 
+
+    /**
+     * 양방향 연관관계를 할경우 반대편에서 다음과같이 적용하면 된다.
+     * 읽기전용으로 사용한다고 정하기
+     * @ManyToOne
+     * @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+     */
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
+//    @ManyToMany
+//    @JoinTable(name = "MEMBER_PRODUCT")
+//    private List<Product> products = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member2")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
 
     public Long getId() {
         return id;

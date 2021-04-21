@@ -23,7 +23,11 @@ public class Order {
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status; 
+    private OrderStatus status;
+
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
 
     public Long getId() {
         return id;
